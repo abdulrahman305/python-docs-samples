@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+# TODO: Delete this file after aproving /extensions folder
 
 import os
 
@@ -27,10 +27,10 @@ REGION = "us-central1"
 
 @pytest.fixture(scope="module")
 def extension_id() -> Generator[str, None, None]:
-    extension = gemini_extensions.create_extension(PROJECT_ID)
+    extension = gemini_extensions.create_extension()
     yield extension.resource_name
     print("Deleting Extension...")
-    gemini_extensions.delete_extension(PROJECT_ID, extension.resource_name)
+    gemini_extensions.delete_extension(extension.resource_name)
 
 
 def test_create_extension_basic(extension_id: str) -> None:
@@ -38,15 +38,15 @@ def test_create_extension_basic(extension_id: str) -> None:
 
 
 def test_execute_extension(extension_id: str) -> None:
-    response = gemini_extensions.execute_extension(PROJECT_ID, extension_id)
+    response = gemini_extensions.execute_extension(extension_id)
     assert response
 
 
 def test_get_extension(extension_id: str) -> None:
-    response = gemini_extensions.get_extension(PROJECT_ID, extension_id)
+    response = gemini_extensions.get_extension(extension_id)
     assert response
 
 
 def test_list_extensions() -> None:
-    response = gemini_extensions.list_extensions(PROJECT_ID)
+    response = gemini_extensions.list_extensions()
     assert response

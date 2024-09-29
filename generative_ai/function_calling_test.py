@@ -11,8 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-import os
+# TODO: Delete this file after approval /function_calling/examples_function_calling_test.py
 
 import backoff
 
@@ -21,9 +20,6 @@ from google.api_core.exceptions import ResourceExhausted
 import pytest
 
 import function_calling
-
-
-_PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT")
 
 
 summary_expected = [
@@ -42,7 +38,7 @@ response_expected = [
 
 @backoff.on_exception(backoff.expo, ResourceExhausted, max_time=10)
 def test_function_calling() -> None:
-    response = function_calling.generate_function_call(project_id=_PROJECT_ID)
+    response = function_calling.generate_function_call()
     assert all(x in str(response.text) for x in summary_expected)
     assert all(x in str(response) for x in response_expected)
 
@@ -51,6 +47,6 @@ def test_function_calling() -> None:
 @pytest.mark.skip("Service currently returning INVALID_ARGUMENT")
 @backoff.on_exception(backoff.expo, ResourceExhausted, max_time=10)
 def test_function_calling_advanced() -> None:
-    response = function_calling.generate_function_call_advanced(project_id=_PROJECT_ID)
+    response = function_calling.generate_function_call_advanced()
     assert all(x in str(response.text) for x in summary_expected)
     assert all(x in str(response) for x in response_expected)

@@ -11,8 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# TODO Delete this file after approving /embeddings/document_retrieval_example.py
 
-# [START aiplatform_sdk_embedding]
 # [START generativeaionvertexai_sdk_embedding]
 from typing import List, Optional
 
@@ -20,20 +20,27 @@ from vertexai.language_models import TextEmbeddingInput, TextEmbeddingModel
 
 
 def embed_text(
-    texts: List[str] = ["banana muffins? ", "banana bread? banana muffins?"],
+    texts: list = None,
     task: str = "RETRIEVAL_DOCUMENT",
-    model_name: str = "text-embedding-004",
     dimensionality: Optional[int] = 256,
 ) -> List[List[float]]:
-    """Embeds texts with a pre-trained, foundational model."""
-    model = TextEmbeddingModel.from_pretrained(model_name)
+    """Embeds texts with a pre-trained, foundational model.
+    Args:
+        texts (List[str]): A list of texts to be embedded.
+        task (str): The task type for embedding. Check the available tasks in the model's documentation.
+        dimensionality (Optional[int]): The dimensionality of the output embeddings.
+    Returns:
+        List[List[float]]: A list of lists containing the embedding vectors for each input text
+    """
+    if texts is None:
+        texts = ["banana muffins? ", "banana bread? banana muffins?"]
+    model = TextEmbeddingModel.from_pretrained("text-embedding-004")
     inputs = [TextEmbeddingInput(text, task) for text in texts]
     kwargs = dict(output_dimensionality=dimensionality) if dimensionality else {}
     embeddings = model.get_embeddings(inputs, **kwargs)
     return [embedding.values for embedding in embeddings]
 
 
-# [END aiplatform_sdk_embedding]
 # [END generativeaionvertexai_sdk_embedding]
 
 

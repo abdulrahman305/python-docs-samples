@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+# TODO: Delete this file after approving /embeddings/multimodal_image_example.py
 import os
 
 from vertexai.vision_models import MultiModalEmbeddingResponse
@@ -25,12 +25,11 @@ def get_image_embeddings() -> MultiModalEmbeddingResponse:
 
     Read more @ https://cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-multimodal-embeddings#low-dimension
     """
-    # [START aiplatform_sdk_multimodal_embedding_image]
     # [START generativeaionvertexai_sdk_multimodal_embedding_image]
     import vertexai
     from vertexai.vision_models import Image, MultiModalEmbeddingModel
 
-    # TODO(developer): Update project
+    # TODO(developer): Update project_id and location
     vertexai.init(project=PROJECT_ID, location="us-central1")
 
     model = MultiModalEmbeddingModel.from_pretrained("multimodalembedding")
@@ -45,7 +44,6 @@ def get_image_embeddings() -> MultiModalEmbeddingResponse:
     )
     print(f"Image Embedding: {embeddings.image_embedding}")
     print(f"Text Embedding: {embeddings.text_embedding}")
-    # [END aiplatform_sdk_multimodal_embedding_image]
     # [END generativeaionvertexai_sdk_multimodal_embedding_image]
 
     return embeddings

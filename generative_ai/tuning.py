@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START aiplatform_sdk_tuning]
 # [START generativeaionvertexai_sdk_tuning]
 from __future__ import annotations
 
@@ -21,22 +20,18 @@ import os
 PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT")
 
 
-def tuning(
-    project_id: str,
-) -> None:
+def tuning() -> None:
     # [START generativeaionvertexai_tuning]
     import vertexai
     from vertexai.language_models import TextGenerationModel
-    from google.auth import default
-
-    credentials, _ = default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
 
     # Initialize Vertex AI
-    # TODO(developer): Update project
-    vertexai.init(project=PROJECT_ID, location="us-central1", credentials=credentials)
+    # TODO(developer): update project_id & location
+    vertexai.init(project=PROJECT_ID, location="us-central1")
 
     model = TextGenerationModel.from_pretrained("text-bison@002")
 
+    # TODO(developer): Update the training data path
     tuning_job = model.tune_model(
         training_data="gs://cloud-samples-data/ai-platform/generative_ai/headline_classification.jsonl",
         tuning_job_location="europe-west4",
@@ -48,5 +43,7 @@ def tuning(
     return model
 
 
-# [END aiplatform_sdk_tuning]
 # [END generativeaionvertexai_sdk_tuning]
+
+if __name__ == "__main__":
+    tuning()
