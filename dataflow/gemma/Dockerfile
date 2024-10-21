@@ -15,7 +15,7 @@
 # This uses Ubuntu with Python 3.11
 # You can check the Python version for a given tensorflow
 # container at https://hub.docker.com/r/tensorflow/tensorflow/tags
-ARG SERVING_BUILD_IMAGE=tensorflow/tensorflow:2.17.0-gpu
+ARG SERVING_BUILD_IMAGE=tensorflow/tensorflow:2.18.0rc2-gpu
 
 FROM ${SERVING_BUILD_IMAGE}
 
